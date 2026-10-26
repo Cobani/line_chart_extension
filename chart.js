@@ -33,6 +33,7 @@
     ['card', 'icon', 'title', 'explanation', 'body', 'legend', 'plot', 'svg', 'hint', 'tooltip', 'menu'].forEach(function (id) {
       el[id] = document.getElementById(id);
     });
+    ChartExport.attach(el.card, 'Line Chart');
 
     el.svg.addEventListener('mousemove', onHover);
     el.svg.addEventListener('mouseleave', function () { hideTooltip(); clearCrosshair(); });
@@ -246,6 +247,8 @@
       if (table && table.error) throw table.error;
 
       model = extract(table, fields);
+
+      ChartExport.setTable(table);
       reconcileKeys();
       var tp = performance.now();
       paint();
@@ -687,6 +690,7 @@
   // Paint
   // ---------------------------------------------------------------------------
   function paint () {
+    if (cfg && window.ChartExport) ChartExport.refresh(cfg);
     if (!cfg || !model) return;
     var list = resolveSeries();
     if (!list.length || !model.xs.length) {

@@ -33,6 +33,7 @@
     { id: 'legend', label: 'Legend & tooltip', build: buildLegendTab,
       keys: ['legend', 'chart.tooltip', 'chart.tooltipSort', 'chart.tooltipTotal', 'chart.hoverDim', 'chart.rightClickMenu', 'numbers.tooltipFull'] },
     { id: 'numbers', label: 'Numbers', build: buildNumbersTab, keys: ['format', 'numbers.font'] },
+    { id: 'export', label: 'Export', build: buildExportTab, keys: ['export'] },
     { id: 'card', label: 'Card', build: buildCardTab, keys: ['card'] }
   ];
 
@@ -485,6 +486,18 @@
     var g2 = group(p, 'Chart text');
     g2.appendChild(fontFamilyRow('Font', 'numbers.font'));
     g2.appendChild(help('Font of value labels, reference line labels and the tooltip. Axis and legend fonts are on their own tabs.'));
+  }
+
+  // ---------------------------------------------------------------------------
+  // Export tab
+  // ---------------------------------------------------------------------------
+  function buildExportTab (p) {
+    var g1 = group(p, 'Export button');
+    g1.appendChild(segRow('Show', 'export.button', [['hover', 'On hover'], ['always', 'Always'], ['never', 'Never']]));
+    g1.appendChild(help('The button at the top right downloads the chart’s data as Excel or CSV, or copies it to paste into Excel.'));
+    var g2 = group(p, 'Files');
+    g2.appendChild(textRow('File name', 'export.fileName', 'Empty = the title'));
+    g2.appendChild(help('Today’s date is added, e.g. “Transfers 2026-10-20.xlsx”. Tableau Desktop can block downloads from extensions; then use Copy data. Tableau Server and Cloud in a browser download normally.'));
   }
 
   function buildCardTab (p) {
